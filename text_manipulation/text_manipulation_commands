@@ -1,0 +1,6 @@
+cat text_manipulation_input_1 | sed 's!;!\n!g' > text_manipulation_output_1
+cat text_manipulation_input_2 | sed -z 's!\n!;!g;s!;$!\n!' > text_manipulation_output_2
+cat text_manipulation_input_1 | awk '{gsub(/;/,"\n")}1' > text_manipulation_output_1
+cat text_manipulation_input_2 | awk NF=NF RS= OFS=";" > text_manipulation_output_2
+
+kubectl get pods -A | grep -v "Completed" | grep -v "Running" | awk '{ print $1 }' | xargs -n1 kubectl delete pod
