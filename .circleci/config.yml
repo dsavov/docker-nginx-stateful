@@ -1,0 +1,37 @@
+version: 2.1
+orbs:
+  kubernetes: circleci/kubernetes@1.3.1
+jobs:
+  build-image:
+    environment:
+      IMAGE_NAME: nginx119debian
+    docker:
+      - image: docker:latest
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "build image"
+          command: docker build -t $IMAGE_NAME debian/.
+      - deploy:
+          name: "push image"
+          command: |
+            docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+            docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest
+  create-update:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - kubernetes/install-kubectl
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: k8s/nginx-deployment.yml
+          resource-name: deployment/nginx-deployment
+          show-kubectl-command: true
+
+workflows:
+  build:
+    jobs:
+      - build-image
+      - create-update
