@@ -1,0 +1,34 @@
+Package manager:   deb
+Project name:      docker-image|nginx119debian
+Docker image:      nginx119debian
+Platform:          linux/amd64
+Base image:        debian:10.13-slim
+Licenses:          enabled
+
+Tested 136 dependencies for known issues, found 134 issues.
+
+Base Image         Vulnerabilities  Severity
+debian:10.13-slim  58               0 critical, 3 high, 0 medium, 55 low
+
+Recommendations for base image upgrade:
+
+Major upgrades
+Base Image                     Vulnerabilities  Severity
+debian:bullseye-20221004-slim  43               0 critical, 0 high, 0 medium, 43 low
+
+
+-------------------------------------------------------
+
+Testing nginx119debian...
+
+Organization:
+Package manager:   maven
+Target file:       /usr/share/java
+Project name:      nginx119debian:latest:/usr/share/java
+Docker image:      nginx119debian
+Licenses:          enabled
+
+✔ Tested nginx119debian for known issues, no vulnerable paths found.
+
+
+Tested 2 projects, 1 contained vulnerable paths.
