@@ -12,7 +12,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: "build image"
-          command: docker build -t $IMAGE_NAME dockerfile/.
+          command: docker build -t $IMAGE_NAME docker-nginx/mainline/debian.
       - deploy:
           name: "push image"
           command: |
@@ -34,4 +34,6 @@ workflows:
   build:
     jobs:
       - build-image
-      - create-update
+      - create-update:
+          requires:
+            - build-image
